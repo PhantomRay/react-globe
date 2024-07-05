@@ -1,6 +1,6 @@
 export const globeConfig = {
   pointSize: 1,
-  globeColor: "#062056",
+  globeColor: "rgba(1,111,1,0.01)",
   showAtmosphere: true,
   atmosphereColor: "#ffffff",
   atmosphereAltitude: 0.1,
