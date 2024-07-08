@@ -1,6 +1,10 @@
 import { PerspectiveCamera } from "three";
+// eslint-disable-next-line
 import { cameraZ } from "./config";
 import { Orbit } from "./Orbit";
+// eslint-disable-next-line
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"; // Corrected import for OrbitControls
+
 
 interface CreateControlsProps {
   camera: PerspectiveCamera;
@@ -18,9 +22,9 @@ function createControls({
   const controls = new Orbit(camera, canvas);
 
   controls.enablePan = false;
-  controls.enableZoom = false;
-  controls.minDistance = cameraZ;
-  controls.maxDistance = cameraZ;
+  controls.enableZoom = true; // Enable zoom
+  controls.minDistance = 100; // Set minimum zoom distance
+  controls.maxDistance = 300; // Set maximum zoom distance
   controls.autoRotateSpeed = autoRotateSpeed;
   controls.autoRotate = autoRotate;
 

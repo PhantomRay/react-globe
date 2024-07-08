@@ -182,11 +182,10 @@ class Globe {
     let points = [];
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
-      const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
       points.push({
         size: this.pointSize,
         order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
+        color: () => `rgba(255, 0, 0, 1)`, // Set color to solid red
         label: arc.from || "",
         lat: arc.startLat,
         lng: arc.startLng,
@@ -194,13 +193,13 @@ class Globe {
       points.push({
         size: this.pointSize,
         order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
+        color: () => `rgba(255, 0, 0, 1)`, // Set color to solid red
         label: arc.to || "",
         lat: arc.endLat,
         lng: arc.endLng,
       });
     }
-
+  
     // remove duplicates for same lat and lng
     this.pointsData = points.filter(
       (v, i, a) =>
