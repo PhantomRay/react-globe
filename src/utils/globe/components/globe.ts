@@ -217,11 +217,15 @@ class Globe {
       emissive: Color;
       emissiveIntensity: number;
       shininess: number;
+      transparent: boolean; // Add this line
+      opacity: number; // Add this line
     };
     globeMaterial.color = new Color(this.globeColor);
     globeMaterial.emissive = new Color(this.emissive);
     globeMaterial.emissiveIntensity = this.emissiveIntensity;
     globeMaterial.shininess = this.shininess;
+    globeMaterial.transparent = true; // Set transparency to true
+    globeMaterial.opacity = 0.4; // Adjust opacity as needed, here it's set to 50%
   }
 }
 

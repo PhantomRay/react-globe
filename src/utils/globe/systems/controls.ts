@@ -23,8 +23,8 @@ function createControls({
 
   controls.enablePan = false;
   controls.enableZoom = true; // Enable zoom
-  controls.minDistance = 100; // Set minimum zoom distance
-  controls.maxDistance = 300; // Set maximum zoom distance
+  controls.minDistance = 285; // Set minimum zoom distance
+  controls.maxDistance = 400; // Set maximum zoom distanceff
   controls.autoRotateSpeed = autoRotateSpeed;
   controls.autoRotate = autoRotate;
 
@@ -33,6 +33,10 @@ function createControls({
 
   // forward controls.update to our custom .tick method
   controls.tick = () => controls.update();
+
+  // Set the camera to the max distance
+  // Assuming the target is at the origin (0, 0, 0)
+  camera.position.set(0, 0, controls.maxDistance);
 
   return controls;
 }

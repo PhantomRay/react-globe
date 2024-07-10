@@ -1,4 +1,5 @@
 import TWEEN from "@tweenjs/tween.js";
+
 import { PerspectiveCamera, Vector3 } from "three";
 import threeGlobe from "three-globe";
 import { Orbit } from "./Orbit";
@@ -153,4 +154,5 @@ export function pointOfView(
       );
     }
   }
+  
 }
