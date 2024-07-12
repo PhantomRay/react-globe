@@ -225,7 +225,7 @@ class Globe {
     globeMaterial.emissiveIntensity = this.emissiveIntensity;
     globeMaterial.shininess = this.shininess;
     globeMaterial.transparent = true; // Set transparency to true
-    globeMaterial.opacity = 0.4; // Adjust opacity as needed, here it's set to 50%
+    globeMaterial.opacity = 0.25; // Adjust opacity as needed, here it's set to 50%
   }
 }
 

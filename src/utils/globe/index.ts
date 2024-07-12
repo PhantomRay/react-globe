@@ -46,7 +46,24 @@ export type GlobeConfig = {
   autoRotateSpeed?: number;
 };
 
+// Assuming World is an interface in App.tsx or globally available
+interface World {
+  // Existing properties and methods
+  navigateToCountry(countryName: string): void;
+  // Add the missing method
+  setCameraPosition(lat: number, lng: number, altitude?: number): void;
+}
+
+// For the object in utils/globe/index.ts, update its type definition
+type GlobeUtils = {
+  initialPosition: { lat: number; lng: number; };
+  navigateToCountry(countryName: string): void;
+  // Add the missing method
+  setCameraPosition(lat: number, lng: number, altitude?: number): void;
+};
+
 class World {
+  
   static defaultProps = {
     // China HongKong
     initialPosition: { lat: 22.3193, lng: 114.1694 },
