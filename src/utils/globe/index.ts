@@ -63,6 +63,39 @@ type GlobeUtils = {
 };
 
 class World {
+
+  navigateToCountry(countryName: string): void {
+    let lat: number, lng: number, altitude: number = 0; // Set a default altitude
+    // Example coordinates, you should use accurate coordinates for each country
+    switch (countryName) {
+      case 'USA':
+        lat = 37.0902;
+        lng = -95.7129;
+        altitude = 1; // Example altitude, adjust as necessary
+        break;
+      case 'China':
+        lat = 35.8617;
+        lng = 104.1954;
+        altitude = 1; // Example altitude, adjust as necessary
+        break;
+      case 'Australia':
+        lat = -25.2744;
+        lng = 133.7751;
+        altitude = 1; // Example altitude, adjust as necessary
+        break;
+      default:
+        console.log('Country not found');
+        return;
+    }
+    this.setCameraPosition(lat, lng, altitude);
+  }
+
+  // Ensure setCameraPosition is implemented to handle the parameters
+  setCameraPosition(lat: number, lng: number, altitude: number): void {
+    // Implementation to adjust the camera position
+    // This is a placeholder, implement according to your camera control logic
+    console.log(`Moving camera to lat: ${lat}, lng: ${lng}, altitude: ${altitude}`);
+  }
   
   static defaultProps = {
     // China HongKong

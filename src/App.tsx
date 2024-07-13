@@ -40,14 +40,46 @@ function App() {
       const world = new World(container, undefined, globeConfig);
       world.start();
   
-      // Safely add event listeners for buttons
-      const usaBtn = document.getElementById("usa-btn");
-      const australiaBtn = document.getElementById("australia-btn");
-      const chinaBtn = document.getElementById("china-btn");
+      // Define the positions for each country
+      const positions = {
+        'usa': { lat: 38.9072, lng: -77.0369, altitude: 300 },
+        'australia': { lat: -25.2744, lng: 133.7751, altitude: 300 },
+        'china': { lat: 35.8617, lng: 104.1954, altitude: 300 },
+      };
   
-      usaBtn?.addEventListener("click", () => world.navigateToCountry("USA"));
-      australiaBtn?.addEventListener("click", () => world.navigateToCountry("Australia"));
-      chinaBtn?.addEventListener("click", () => world.navigateToCountry("China"));
+      // Function to move the camera to the specified country
+      const moveToCountry = (country: string) => {
+        const { lat, lng, altitude } = positions[country as keyof typeof positions];
+        world.setCameraPosition(lat, lng, altitude);
+      };
+      
+      // Remove the duplicate declaration of 'positions'
+      // const positions = {
+      //   'usa': { lat: 38.9072, lng: -77.0369, altitude: 300 },
+      //   'australia': { lat: -25.2744, lng: 133.7751, altitude: 300 },
+      //   'china': { lat: 35.8617, lng: 104.1954, altitude: 300 },
+      // };
+      
+      // Refactored event handlers
+      const handleUsaClick = () => moveToCountry('usa');
+      const handleAustraliaClick = () => moveToCountry('australia');
+      const handleChinaClick = () => moveToCountry('china');
+  
+      // Add event listeners to buttons
+      const usaBtn = document.getElementById('usa-btn');
+      const australiaBtn = document.getElementById('australia-btn');
+      const chinaBtn = document.getElementById('china-btn');
+  
+      if (usaBtn) usaBtn.addEventListener('click', handleUsaClick);
+      if (australiaBtn) australiaBtn.addEventListener('click', handleAustraliaClick);
+      if (chinaBtn) chinaBtn.addEventListener('click', handleChinaClick);
+  
+      // Clean up
+      return () => {
+        if (usaBtn) usaBtn.removeEventListener('click', handleUsaClick);
+        if (australiaBtn) australiaBtn.removeEventListener('click', handleAustraliaClick);
+        if (chinaBtn) chinaBtn.removeEventListener('click', handleChinaClick);
+      };
     }
   }, []);
 
