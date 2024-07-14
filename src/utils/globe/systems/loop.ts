@@ -2,6 +2,8 @@ import { Clock, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { Globe as threeGlobe } from "./Globe";
 import { Orbit } from "./Orbit";
 
+// src/utils/globe/systems/loop.ts
+
 class Loop {
   camera: PerspectiveCamera;
   scene: Scene;
@@ -9,6 +11,8 @@ class Loop {
   updatables: [Orbit, threeGlobe];
 
   clock: Clock;
+  shouldRotate: boolean;
+  inactivityTimer: ReturnType<typeof setTimeout> | null;
 
   constructor(
     camera: PerspectiveCamera,
@@ -21,29 +25,51 @@ class Loop {
     this.updatables = [] as unknown as [Orbit, threeGlobe];
 
     this.clock = new Clock();
+    this.shouldRotate = true; // Add this line
+    this.inactivityTimer = null; // Add this line
+
+    // Initialize event listeners for mouse movement
+    this.initMouseListeners();
+  }
+
+  initMouseListeners() {
+    window.addEventListener('mousemove', () => {
+      this.shouldRotate = false;
+      this.resetInactivityTimer();
+    });
+  }
+
+  resetInactivityTimer() {
+    if (this.inactivityTimer) {
+      clearTimeout(this.inactivityTimer);
+    }
+    this.inactivityTimer = setTimeout(() => {
+      this.shouldRotate = true;
+    }, 5000); // Change from 10000 to 5000
   }
 
   start() {
     this.renderer.setAnimationLoop(() => {
-      // tell every animated object to tick forward one frame
-      this.tick();
+      // Only rotate if shouldRotate is true
+      if (this.shouldRotate) {
+        this.tick();
+      }
 
-      // render a frame
+      // Render a frame
       this.renderer.render(this.scene, this.camera);
     });
   }
 
+  // Ensure to clear the timer when stopping the loop
   stop() {
     this.renderer.setAnimationLoop(null);
+    if (this.inactivityTimer) {
+      clearTimeout(this.inactivityTimer);
+    }
   }
 
   tick() {
-    // only call the getDelta function once per frame!
     const delta = this.clock.getDelta();
-
-    // console.log(
-    //   `The last frame rendered in ${delta * 1000} milliseconds`,
-    // );
 
     for (const object of this.updatables) {
       object.tick(delta);

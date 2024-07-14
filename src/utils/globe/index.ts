@@ -7,6 +7,8 @@ import { createControls } from "./systems/controls";
 import { Loop } from "./systems/loop";
 import { Orbit } from "./systems/Orbit";
 import { pointOfView } from "./systems/utils";
+import * as THREE from 'three';
+
 
 export type FlightsProps = {
   order: number;
@@ -65,6 +67,8 @@ type GlobeUtils = {
 class World {
 
   navigateToCountry(countryName: string): void {
+    console.log(`Navigating to country: ${countryName}`);
+  
     let lat: number, lng: number, altitude: number = 0; // Set a default altitude
     // Example coordinates, you should use accurate coordinates for each country
     switch (countryName) {
@@ -87,14 +91,21 @@ class World {
         console.log('Country not found');
         return;
     }
+  
+    console.log(`Setting camera position to Lat: ${lat}, Lng: ${lng}, Altitude: ${altitude}`);
     this.setCameraPosition(lat, lng, altitude);
   }
 
-  // Ensure setCameraPosition is implemented to handle the parameters
   setCameraPosition(lat: number, lng: number, altitude: number): void {
-    // Implementation to adjust the camera position
-    // This is a placeholder, implement according to your camera control logic
-    console.log(`Moving camera to lat: ${lat}, lng: ${lng}, altitude: ${altitude}`);
+    // Convert lat, lng, altitude to Three.js Vector3 position, this is an example
+    const newPosition = this.convertLatLongAltToVector3(lat, lng, altitude);
+    // Additional logic to use newPosition
+  }
+
+  private convertLatLongAltToVector3(lat: number, lng: number, altitude: number): THREE.Vector3 {
+    // Implementation for converting latitude, longitude, and altitude to a Vector3
+    // This is a placeholder implementation. Replace with actual conversion logic
+    return new THREE.Vector3(lat, lng, altitude); // Example conversion
   }
   
   static defaultProps = {

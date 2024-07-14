@@ -4,35 +4,35 @@ import { World } from "./utils/globe/index";
 
 function App() {
 
-  // useEffect(() => {
-  //   const container = document.querySelector("#scene-container");
-  //   let idleTimer;
-
-  //   if (container) {
-  //     const world = new World(container, undefined, globeConfig);
-  //     world.start();
-
-  //     const resetIdleTimer = () => {
-  //       clearTimeout(idleTimer);
-  //       world.stopSpinning(); // Stop spinning when the user is active
-  //       idleTimer = setTimeout(() => world.startSpinning(), 10000); // Start spinning after 10 seconds of idle time
-  //     };
-
-  //     // Initialize the idle timer
-  //     resetIdleTimer();
-
-  //     // Event listeners to detect user activity
-  //     document.addEventListener("mousemove", resetIdleTimer);
-  //     document.addEventListener("keypress", resetIdleTimer);
-
-  //     // Clean up
-  //     return () => {
-  //       clearTimeout(idleTimer);
-  //       document.removeEventListener("mousemove", resetIdleTimer);
-  //       document.removeEventListener("keypress", resetIdleTimer);
-  //     };
-  //   }
-  // }, []);
+  useEffect(() => {
+    const container = document.querySelector("#scene-container");
+    let idleTimer: ReturnType<typeof setTimeout>; // Correctly type the idleTimer
+    if (container) {
+      const world = new World(container, undefined, globeConfig);
+      world.start(); // Start the globe to initialize it, then stop it to make it not spin initially.
+      world.stop(); // Stop the globe from spinning initially.
+  
+      const resetIdleTimer = () => {
+        clearTimeout(idleTimer); // Clear the existing timer without casting
+        world.stop(); // Stop the globe from spinning when user activity is detected
+        idleTimer = setTimeout(() => world.start(), 10000); // Start spinning after 10 seconds of idle time
+      };
+  
+      // Initialize the idle timer
+      resetIdleTimer();
+  
+      // Event listeners to detect user activity
+      document.addEventListener("mousemove", resetIdleTimer);
+      document.addEventListener("keypress", resetIdleTimer);
+  
+      // Clean up
+      return () => {
+        clearTimeout(idleTimer);
+        document.removeEventListener("mousemove", resetIdleTimer);
+        document.removeEventListener("keypress", resetIdleTimer);
+      };
+    }
+  }, []);
 
   useEffect(() => {
     const container = document.querySelector("#scene-container");
@@ -40,27 +40,36 @@ function App() {
       const world = new World(container, undefined, globeConfig);
       world.start();
   
-      // Define the positions for each country
-      const positions = {
-        'usa': { lat: 38.9072, lng: -77.0369, altitude: 300 },
-        'australia': { lat: -25.2744, lng: 133.7751, altitude: 300 },
-        'china': { lat: 35.8617, lng: 104.1954, altitude: 300 },
-      };
-  
       // Function to move the camera to the specified country
       const moveToCountry = (country: string) => {
-        const { lat, lng, altitude } = positions[country as keyof typeof positions];
-        world.setCameraPosition(lat, lng, altitude);
+        // Convert country codes to the expected country names
+        let countryName;
+        switch (country) {
+          case 'usa':
+            countryName = 'USA';
+            break;
+          case 'australia':
+            countryName = 'Australia';
+            break;
+          case 'china':
+            countryName = 'China';
+            break;
+          default:
+            console.log(`Country code ${country} not recognized.`);
+            return;
+        }
+  
+        world.navigateToCountry(countryName);
       };
-      
-      // Remove the duplicate declaration of 'positions'
+  
+      // Define the positions for each country
       // const positions = {
       //   'usa': { lat: 38.9072, lng: -77.0369, altitude: 300 },
       //   'australia': { lat: -25.2744, lng: 133.7751, altitude: 300 },
       //   'china': { lat: 35.8617, lng: 104.1954, altitude: 300 },
       // };
-      
-      // Refactored event handlers
+  
+      // Event handlers for buttons
       const handleUsaClick = () => moveToCountry('usa');
       const handleAustraliaClick = () => moveToCountry('australia');
       const handleChinaClick = () => moveToCountry('china');

@@ -24,7 +24,7 @@ function createControls({
   controls.enablePan = false;
   controls.enableZoom = true; // Enable zoom
   controls.minDistance = 285; // Set minimum zoom distance
-  controls.maxDistance = 400; // Set maximum zoom distanceff
+  controls.maxDistance = 400; // Set maximum zoom distance
   controls.autoRotateSpeed = autoRotateSpeed;
   controls.autoRotate = autoRotate;
 
