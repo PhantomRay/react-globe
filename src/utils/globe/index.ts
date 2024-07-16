@@ -48,8 +48,66 @@ export type GlobeConfig = {
   autoRotateSpeed?: number;
 };
 
+// Assuming World is an interface in App.tsx or globally available
+interface World {
+  // Existing properties and methods
+  navigateToCountry(countryName: string): void;
+  // Add the missing method
+  setCameraPosition(lat: number, lng: number, altitude?: number): void;
+}
+
+// For the object in utils/globe/index.ts, update its type definition
+type GlobeUtils = {
+  initialPosition: { lat: number; lng: number; };
+  navigateToCountry(countryName: string): void;
+  // Add the missing method
+  setCameraPosition(lat: number, lng: number, altitude?: number): void;
+};
+
 class World {
 
+  navigateToCountry(countryName: string): void {
+    console.log(`Navigating to country: ${countryName}`);
+  
+    let lat: number, lng: number, altitude: number = 0; // Set a default altitude
+    // Example coordinates, you should use accurate coordinates for each country
+    switch (countryName) {
+      case 'USA':
+        lat = 37.0902;
+        lng = -95.7129;
+        altitude = 1; // Example altitude, adjust as necessary
+        break;
+      case 'China':
+        lat = 35.8617;
+        lng = 104.1954;
+        altitude = 1; // Example altitude, adjust as necessary
+        break;
+      case 'Australia':
+        lat = -25.2744;
+        lng = 133.7751;
+        altitude = 1; // Example altitude, adjust as necessary
+        break;
+      default:
+        console.log('Country not found');
+        return;
+    }
+  
+    console.log(`Setting camera position to Lat: ${lat}, Lng: ${lng}, Altitude: ${altitude}`);
+    this.setCameraPosition(lat, lng, altitude);
+  }
+
+  setCameraPosition(lat: number, lng: number, altitude: number): void {
+    // Convert lat, lng, altitude to Three.js Vector3 position, this is an example
+    const newPosition = this.convertLatLongAltToVector3(lat, lng, altitude);
+    // Additional logic to use newPosition
+  }
+
+  private convertLatLongAltToVector3(lat: number, lng: number, altitude: number): THREE.Vector3 {
+    // Implementation for converting latitude, longitude, and altitude to a Vector3
+    // This is a placeholder implementation. Replace with actual conversion logic
+    return new THREE.Vector3(lat, lng, altitude); // Example conversion
+  }
+  
   static defaultProps = {
     // China HongKong
     initialPosition: { lat: 22.3193, lng: 114.1694 },
@@ -110,7 +168,7 @@ class World {
     this.renderer.domElement.id = "globe-canvas";
 
     this.camera = new PerspectiveCamera(50, aspect, 180, 1800);
-    this.camera.position.set(0, 0, cameraZ); // cameraZ is your desired zoom level, adjust accordingly
+    this.camera.position.set(0, 0, cameraZ);
 
     this.loop = new Loop(this.camera, this.scene, this.renderer);
     this.controls = createControls({
