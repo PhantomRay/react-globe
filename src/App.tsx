@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { globeConfig } from "./utils/config.globe";
 import { World } from "./utils/globe/index";
 import { pointOfView } from "./utils/globe/systems/utils";
-import ThreeGlobe from "three-globe";
+import { PointOfViewOptions } from "./utils/globe/systems/types";
+import "./utils/globe/systems/Orbit";
+import "three-globe";
+import ThreeGlobe, { ThreeGlobeGeneric } from "three-globe";
+import { OrbitControls as Orbit } from "three/examples/jsm/controls/OrbitControls";
 
 function App() {
   const [world, setWorld] = useState<World | null>(null);
@@ -16,17 +20,16 @@ function App() {
     }
   }, []);
 
-  const moveToCountry = (country: string) => {
+  const moveToCountry = (country: string): void => {
     const positions: { [key: string]: { lat: number; lng: number; altitude: number } } = {
-      'usa': { lat: 38.9072, lng: -77.0369, altitude: 300 },
-      'australia': { lat: -25.2744, lng: 133.7751, altitude: 300 },
-      'china': { lat: 35.8617, lng: 104.1954, altitude: 300 },
+      'usa': { lat: 38.9072, lng: -77.0369, altitude: 0.5 },
+      'australia': { lat: -25.2744, lng: 133.7751, altitude: 0.5 },
+      'china': { lat: 35.8617, lng: 104.1954, altitude: 0.5 },
     };
-
     const position = positions[country];
     if (world && position) {
-      const threeGlobe = world.globe as unknown as ThreeGlobe;
-      pointOfView(world.camera, world.controls, threeGlobe, position, 1000);
+      const pointOfViewOptions: PointOfViewOptions = { latitude: position.lat, longitude: position.lng, altitude: position.altitude };
+      pointOfView(world.camera, world.controls, world.globe as unknown as ThreeGlobe, pointOfViewOptions);
     } else {
       console.log(`Country code ${country} not recognized or world not initialized.`);
     }
