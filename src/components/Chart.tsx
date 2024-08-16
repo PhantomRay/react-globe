@@ -3,13 +3,10 @@
 import { type ReactElement } from 'react';
 import { FrameSVGCorners } from '@arwes/react-frames';
 import { Line } from '@ant-design/plots';
-import { Request } from './data';
 
-const data = Request;
-
-let x = 1;
 
 const DemoArea = () => {
+  let x = 1;
   const config = {
     theme: "classicDark",
     data: {
