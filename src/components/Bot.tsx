@@ -1,19 +1,30 @@
 
 import { type ReactElement, useState, useEffect } from 'react';
 
-export const Bot = (): ReactElement => {
+function getRandomIP() {
+  const randomOctet = () => Math.floor(Math.random() * 256);
+  return `${randomOctet()}.${randomOctet()}.${randomOctet()}.${randomOctet()}`;
+}
 
-  const [count1, setCount1] = useState(Math.floor(30 + Math.random() * 30));
-  const [count2, setCount2] = useState(Math.floor(30 + Math.random() * 30));
-  const [count3, setCount3] = useState(Math.floor(30 + Math.random() * 30));
+export const Bot = (): ReactElement => {
+  const agents = ['Supers/24.15.0 (AndroidPhone; 34)', 'Supers/24.15.0 (iPhone; iOS 17.5.1)', 'Supers/24.15.0 (AndroidPhone; 34)'];
+  const isps = ['Telstra Limited', 'Optus', 'iiNET Limited', 'AWS'];
+  const locations = ['NSW, Australia', 'QLD, Australia', 'VIC, Australia', 'WA, Australia', 'SA, Australia', 'TAS, Australia', 'NT, Australia', 'ACT, Australia'];
+
+
+  const agent = agents[Math.floor(Math.random() * agents.length)];
+  const isp = isps[Math.floor(Math.random() * isps.length)];
+  const loc = locations[Math.floor(Math.random() * locations.length)];
+  const ip = getRandomIP();
+
+  const base = 70;
+  const [count3, setCount] = useState(Math.floor(base + Math.random() * (100 - base)));
 
 
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCount1(Math.floor(Math.floor(30 + Math.random() * 30)));
-      setCount2(Math.floor(Math.floor(30 + Math.random() * 30)));
-      setCount3(Math.floor(Math.floor(30 + Math.random() * 30)));
+      setCount(Math.floor(Math.floor(base + Math.random() * (100 - base))));
     }, 2000);
 
     return () => clearInterval(interval);
@@ -21,35 +32,28 @@ export const Bot = (): ReactElement => {
 
 
   return (
-    <div className="sci-fi-card">
-      {/* <div className="card-left">
-        <div className="big-number">88</div>
-      </div> */}
+    <div className="bot-card">
       <div className="card-right">
         <div className="status-bar">
-          <span>192.168.1.30</span>
+          <span>{ip}</span>
           <span>BOT</span>
         </div>
         <div className="info-box">
           <div className="info-row">
-            <span>REASON 1</span>
-            <span className="small-text">INFO</span>
+            <span>{agent}</span>
           </div>
           <div className="info-row">
-            <span>REASON 2</span>
+            <span>{isp}</span>
+            <span className="small-text">ISP</span>
+          </div>
+          <div className="info-row">
+            <span>{loc}</span>
+            <span className="small-text">LOC</span>
           </div>
         </div>
         <div className="progress-bars">
           <div className="progress-bar">
-            <div className="progress animated-width" style={{ width: count1 + '%' }}></div>
-            <span>{count1}</span>
-          </div>
-          <div className="progress-bar">
-            <div className="progress animated-width" style={{ width: count2 + '%' }}></div>
-            <span>{count2}</span>
-          </div>
-          <div className="progress-bar">
-            <div className="progress animated-width" style={{ width: count3 + '%' }}></div>
+            <div className="progress animated-progressbar" style={{ width: count3 + '%' }}></div>
             <span>{count3}</span>
           </div>
         </div>
