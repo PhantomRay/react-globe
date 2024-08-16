@@ -30,7 +30,7 @@ body {
 }
 
 #scene-container {
-  top: 80px;
+  top: 110px;
   left: 50px;
   width: 90%;
   height: 90%;
@@ -55,7 +55,7 @@ body {
 }
 
 .animated-progressbar {
-  transition: width 0.5s ease-in-out;  
+  transition: width 1s ease-in-out;  
 }
 
 .info-container {

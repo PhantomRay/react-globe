@@ -4,17 +4,33 @@ import { type ReactElement, useState, useEffect, useRef } from 'react';
 import { Animator } from '@arwes/react-animator';
 import { FrameSVGCorners } from '@arwes/react-frames';
 import { Text } from '@arwes/react-text';
-import { getRandomIP, getUserAgent } from '../utils/helper';
+import { getRandom, getRandomIP, getUserAgent } from '../utils/helper';
+import { createBleep } from '@arwes/bleeps';
+
+let volume = 1;
+const bleep = createBleep({
+  sources: [
+    { src: '/assets/sound/typing.mp3', type: 'audio/mpeg' }
+  ],
+  volume,
+  loop: false
+});
+
 
 function generateLine(): string {
-  // sample: IP: <IP> User-agent: <user-agent> ... <BLOCED | ALLOWED>
   const ip = getRandomIP();
   const userAgent = getUserAgent();
-  return `IP: ${ip} User-agent: ${userAgent} ... ${getAction()}`;
+  const action = getAction();
+
+  if (action === 'BLOCKED' && !bleep?.isPlaying) {
+    bleep?.play();
+  }
+
+  return `IP: ${ip} User-agent: ${userAgent} ... ${action}`;
 }
 
 function getAction(): string {
-  return Math.random() < 0.5 ? 'BLOCKED' : 'ALLOWED';
+  return Math.random() < 0.7 ? 'BLOCKED' : 'ALLOWED';
 }
 
 export const Log = (): ReactElement => {
@@ -28,7 +44,7 @@ export const Log = (): ReactElement => {
         ...prevTexts,
         generateLine(),
       ]);
-    }, 1000); // Update every 5 seconds
+    }, getRandom(1000, 5000));
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
@@ -64,13 +80,16 @@ export const Log = (): ReactElement => {
         <Animator active={true} combine manager='sequence'>
           <Animator>
             {texts.map((text, index) => (
-              <Animator key={index}>
-                <Text>{text}</Text>
+              < Animator key={index} >
+                <Text>{text.replace(/ALLOWED|BLOCKED/, '')} <span style={{
+                  color: text.includes('BLOCKED') ? 'red' : 'green'
+                }}>{text.endsWith('BLOCKED') ? 'BLOCKED' : 'ALLOWED'}
+                </span></Text>
               </Animator>
             ))}
           </Animator>
         </Animator>
       </div>
-    </div>
+    </div >
   );
 };

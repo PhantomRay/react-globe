@@ -13,15 +13,16 @@ export const Bot = (): ReactElement => {
   const loc = locations[Math.floor(Math.random() * locations.length)];
   const ip = getRandomIP();
 
-  const base = 70;
+  const base = 50;
   const [count3, setCount] = useState(Math.floor(base + Math.random() * (100 - base)));
 
 
-
   useEffect(() => {
+    const randomInterval = Math.floor(Math.random() * 3000) + 2000;
+
     const interval = setInterval(() => {
       setCount(Math.floor(Math.floor(base + Math.random() * (100 - base))));
-    }, 2000);
+    }, randomInterval);
 
     return () => clearInterval(interval);
   }, []);
