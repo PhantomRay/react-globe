@@ -1,9 +1,5 @@
 import { PerspectiveCamera } from "three";
-// eslint-disable-next-line
-import { cameraZ } from "./config";
 import { Orbit } from "./Orbit";
-// eslint-disable-next-line
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"; // Corrected import for OrbitControls
 
 interface CreateControlsProps {
   camera: PerspectiveCamera;
