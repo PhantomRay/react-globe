@@ -17,7 +17,10 @@ const bleep = createBleep({
 });
 
 
-function generateLine(): string {
+function generateLine(): {
+  text: string;
+  action: string;
+} {
   const ip = getRandomIP();
   const userAgent = getUserAgent();
   const action = getAction();
@@ -26,7 +29,10 @@ function generateLine(): string {
     bleep?.play();
   }
 
-  return `IP: ${ip} User-agent: ${userAgent} ... ${action}`;
+  return {
+    text: `IP: ${ip} User-agent: ${userAgent}`,
+    action
+  };
 }
 
 function getAction(): string {
@@ -34,7 +40,7 @@ function getAction(): string {
 }
 
 export const Log = (): ReactElement => {
-  const [texts, setTexts] = useState<string[]>([]);
+  const [texts, setTexts] = useState<any[]>([]);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -79,12 +85,15 @@ export const Log = (): ReactElement => {
       >
         <Animator active={true} combine manager='sequence'>
           <Animator>
-            {texts.map((text, index) => (
+            {texts.map((item, index) => (
               < Animator key={index} >
-                <Text>{text.replace(/ALLOWED|BLOCKED/, '')} <span style={{
-                  color: text.includes('BLOCKED') ? 'red' : 'green'
-                }}>{text.endsWith('BLOCKED') ? 'BLOCKED' : 'ALLOWED'}
-                </span></Text>
+                <Text>{item.text}...
+                  <span
+                    className='action'
+                    style={{
+                      color: item.action === 'BLOCKED' ? 'red' : 'green'
+                    }}>{item.action}
+                  </span></Text>
               </Animator>
             ))}
           </Animator>

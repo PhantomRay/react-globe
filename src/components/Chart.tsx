@@ -39,20 +39,6 @@ const DemoArea = () => {
     axis: {
       x: { labelAutoHide: 'greedy' },
     },
-    legend: {
-      itemName: {
-        formatter: (text: string, x: string) => {
-          console.log(text, x);
-          return text; // default return text if not explicitly mapped
-        },
-      },
-    },
-    xAxis: {
-      label: null, // Hide x-axis labels
-    },
-    yAxis: {
-      label: null, // Hide y-axis labels
-    },
   };
 
   return <Line {...config} />;
