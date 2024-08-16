@@ -62,7 +62,7 @@ class Globe {
     atmosphereAltitude: 0.1,
     polygonColor: "rgba(255,255,255,0.7)",
     globeColor: "#1d072e",
-    globeOpacity: 0.8,
+    globeOpacity: 0.9,
     emissive: "#000000",
     emissiveIntensity: 0.1,
     shininess: 0.9,
@@ -228,7 +228,7 @@ class Globe {
     globeMaterial.emissive = new Color(this.emissive);
     globeMaterial.emissiveIntensity = this.emissiveIntensity;
     globeMaterial.shininess = this.shininess;
-    globeMaterial.transparent = false;
+    globeMaterial.transparent = true;
     globeMaterial.opacity = this.globeOpacity;
   }
 }

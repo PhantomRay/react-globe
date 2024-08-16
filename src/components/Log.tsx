@@ -36,7 +36,7 @@ function generateLine(): {
 }
 
 function getAction(): string {
-  return Math.random() < 0.7 ? 'BLOCKED' : 'ALLOWED';
+  return Math.random() < 0.5 ? 'BLOCKED' : 'ALLOWED';
 }
 
 export const Log = (): ReactElement => {
