@@ -1,18 +1,14 @@
 
 import { type ReactElement, useState, useEffect } from 'react';
+import { getRandomIP, getUserAgent } from '../utils/helper';
 
-function getRandomIP() {
-  const randomOctet = () => Math.floor(Math.random() * 256);
-  return `${randomOctet()}.${randomOctet()}.${randomOctet()}.${randomOctet()}`;
-}
 
 export const Bot = (): ReactElement => {
-  const agents = ['Supers/24.15.0 (AndroidPhone; 34)', 'Supers/24.15.0 (iPhone; iOS 17.5.1)', 'Supers/24.15.0 (AndroidPhone; 34)'];
   const isps = ['Telstra Limited', 'Optus', 'iiNET Limited', 'AWS'];
   const locations = ['NSW, Australia', 'QLD, Australia', 'VIC, Australia', 'WA, Australia', 'SA, Australia', 'TAS, Australia', 'NT, Australia', 'ACT, Australia'];
 
 
-  const agent = agents[Math.floor(Math.random() * agents.length)];
+  const agent = getUserAgent();
   const isp = isps[Math.floor(Math.random() * isps.length)];
   const loc = locations[Math.floor(Math.random() * locations.length)];
   const ip = getRandomIP();

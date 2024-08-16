@@ -6,7 +6,8 @@ import { Processed } from "./components/Processed";
 import { Blcoked } from "./components/Blocked";
 import { Whitelist } from "./components/Whitelist";
 import { Bot } from "./components/Bot";
-import { Requests } from "./components/Requests";
+import { Log } from "./components/Log";
+import { Chart } from "./components/Chart";
 
 function App() {
   useEffect(() => {
@@ -22,27 +23,31 @@ function App() {
     <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
       <Background />
       <div className="left-panel">
-        <h1>
-          Bot Traffic Analysis
-        </h1>
-        <div
-          id="scene-container"
-        ></div>
-        <div className="console-container">
-          <Requests />
-        </div>
+        <h1>Bot Traffic Analysis</h1>
+        <div id="scene-container"></div>
       </div>
       <div className="info-container">
-        <div
-          className="stats-container">
+        <div className="stats-container">
           <Blcoked /> <Processed /> <Whitelist />
         </div>
-        <div className="bots-container">
-          <Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot /><Bot />
-
+        <div className="chart-container">
+          <Chart />
+        </div>
+        <div className="console-container">
+          <Log />
         </div>
       </div>
-    </div >
+      <div className="bots-container">
+        <Bot />
+        <Bot />
+        <Bot />
+        <Bot />
+        <Bot />
+        <Bot />
+        <Bot />
+        <Bot />
+      </div>
+    </div>
   );
 }
 

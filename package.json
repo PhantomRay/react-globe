@@ -2,10 +2,12 @@
   "name": "globe",
   "version": "0.1.0",
   "dependencies": {
+    "@ant-design/plots": "^2.2.8",
     "@arwes/core": "^1.0.0-next.24051001",
     "@arwes/react-animator": "^1.0.0-next.24080101",
     "@arwes/react-bgs": "^1.0.0-next.24080101",
     "@arwes/react-frames": "^1.0.0-next.24080101",
+    "@arwes/react-text": "^1.0.0-next.24080101",
     "@emotion/react": "^11.13.0",
     "@tweenjs/tween.js": "^18.6.4",
     "@types/node": "^16.7.13",

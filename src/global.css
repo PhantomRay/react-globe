@@ -14,39 +14,44 @@ body {
 
 .left-panel {
   width: 40%;
-  height: 100%;
-  /* display: flex; */
+  height: 100%; 
   align-items: center;
   justify-content: center;
-  position: relative; 
-  /* border: 1px solid #ffffff;  */
+  position: relative;  
 }
 
 .left-panel h1 {
   color: #cccccc;
   font-size: 2rem;
-  top: 10%;
+  top: 7%;
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%)
 }
 
 #scene-container {
-  top: 50px;
+  top: 80px;
   left: 50px;
   width: 90%;
   height: 90%;
   position: absolute; 
   justify-content: center; 
   display: flex;
+  z-index: 99999;
 }
 
 .console-container {
-  top: 760px;
-  left: 30px; 
-  position: relative; 
-  justify-content: center;
-  display: flex;
+  top: 480px; 
+  display: block;
+  position: absolute; 
+}
+
+.output { 
+  overflow: auto;
+  height: 100%;
+  color: 'hsl(60, 75%, 50%)';
+  margin: 15px 10px; 
+  scrollbar-width: none;
 }
 
 .animated-progressbar {
@@ -55,32 +60,42 @@ body {
 
 .info-container {
   display: flex;
-  flex-direction: column; 
-  align-items: center;  
-  width: 60%; 
+  flex-direction: column;  
+  width: 1020px; 
   height: 90%;  
   padding: 50px;
 }
 
 .stats-container { 
-  margin-top: 30px;  
-  margin-bottom: 50px;  
+  margin-top: 30px;   
   display: flex; 
   align-items: center;
   gap: 50px;
 }
 
-.bots-container {   
-  flex-wrap: wrap; 
-  gap: 10px;   
-  display: flex;
+.chart-container{ 
+  top: 50px;
+  width: 100%; 
+  position: relative;
   justify-content: center;
+  align-items: center;
+}
+
+.bots-container {   
+  /* flex-wrap: wrap;   */
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  gap: 20px;
+  left: 80px;
+  bottom: 80px;
 }
 
 .bot-card {
   display: flex;
+  flex-direction: row;
   border: 1px solid #ffffff;
-  width: 30%;
+  width: 200px;
   height: 120px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); 
 }
