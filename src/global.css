@@ -1,14 +1,9 @@
-:root {
-  --background-image: url("../public/the-beautiful-shining-stars-in-the-night-sky.jpg");
-  --background-size: cover;
-  --background-repeat: no-repeat;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Orbitron", sans-serif;;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
@@ -18,6 +13,108 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Orbitron", sans-serif;
+}
+
+.animated-width {
+  transition: width 0.5s ease-in-out; /* Adjust the duration and timing function as needed */
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center align items horizontally */
+  width: 100%;
+  width: 100%;
+  height: 100vh;  
+}
+
+.stats-container { 
+  margin-bottom: 20px;  
+  display: flex; 
+  align-items: center;
+  gap: 50px;
+}
+
+.bots-container {   
+  flex-wrap: wrap; 
+  gap: 10px;   
+}
+
+.sci-fi-card {
+  display: flex;
+  /* background-color: #1b1f27; */
+  border: 1px solid #ffffff;
+  width: 30%;
+  height: 150px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+
+.big-number {
+  font-size: 48px;
+  color: #ff3c3c;
+}
+
+.card-right {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;  
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #ff3c3c;
+}
+
+.info-box {
+  margin-bottom: 10px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #e0e0e0;
+}
+
+.small-text {
+  font-size: 10px;
+  color: #ffffff;
+}
+
+.progress-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.progress-bar {
+  position: relative;
+  /* background-color: #2a2f38; */
+  border: 1px solid #ff3c3c;
+  height: 10px;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #ff3c3c;
+  border-radius: 5px 0 0 5px;
+}
+
+.progress-bar span {
+  position: absolute;
+  right: 5px;
+  top: -2px;
+  font-size: 12px;
+  color: #ffffff;
 }

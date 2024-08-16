@@ -3,7 +3,7 @@ import { FlightsProps } from "..";
 import flightsDefault from "../assets/arcs.json";
 import countries from "../assets/globe.json";
 import { Globe as ThreeGlobe } from "../systems/Globe";
-import { genRandomNumbers, hexToRgb } from "../systems/utils";
+import { genRandomNumbers } from "../systems/utils";
 
 interface GlobeProps {
   pointSize?: number;
@@ -12,6 +12,7 @@ interface GlobeProps {
   atmosphereAltitude?: number;
   polygonColor?: string;
   globeColor?: string;
+  globeOpacity?: number;
   emissive?: string;
   emissiveIntensity?: number;
   shininess?: number;
@@ -38,6 +39,7 @@ class Globe {
   atmosphereAltitude: number;
   polygonColor: string;
   globeColor: string;
+  globeOpacity: number;
   emissive: string;
   emissiveIntensity: number;
   shininess: number;
@@ -60,6 +62,7 @@ class Globe {
     atmosphereAltitude: 0.1,
     polygonColor: "rgba(255,255,255,0.7)",
     globeColor: "#1d072e",
+    globeOpacity: 0.8,
     emissive: "#000000",
     emissiveIntensity: 0.1,
     shininess: 0.9,
@@ -79,6 +82,7 @@ class Globe {
       props.atmosphereAltitude || Globe.defaultProps.atmosphereAltitude;
     this.polygonColor = props.polygonColor || Globe.defaultProps.polygonColor;
     this.globeColor = props.globeColor || Globe.defaultProps.globeColor;
+    this.globeOpacity = props.globeOpacity || Globe.defaultProps.globeOpacity;
     this.emissive = props.emissive || Globe.defaultProps.emissive;
     this.emissiveIntensity =
       props.emissiveIntensity || Globe.defaultProps.emissiveIntensity;
@@ -182,11 +186,10 @@ class Globe {
     let points = [];
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
-      const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
       points.push({
         size: this.pointSize,
         order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
+        color: () => `rgba(255, 0, 0, 1)`, // Set color to solid red
         label: arc.from || "",
         lat: arc.startLat,
         lng: arc.startLng,
@@ -194,7 +197,7 @@ class Globe {
       points.push({
         size: this.pointSize,
         order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
+        color: () => `rgba(255, 0, 0, 1)`, // Set color to solid red
         label: arc.to || "",
         lat: arc.endLat,
         lng: arc.endLng,
@@ -218,11 +221,15 @@ class Globe {
       emissive: Color;
       emissiveIntensity: number;
       shininess: number;
+      transparent: boolean;
+      opacity: number;
     };
     globeMaterial.color = new Color(this.globeColor);
     globeMaterial.emissive = new Color(this.emissive);
     globeMaterial.emissiveIntensity = this.emissiveIntensity;
     globeMaterial.shininess = this.shininess;
+    globeMaterial.transparent = false;
+    globeMaterial.opacity = this.globeOpacity;
   }
 }
 

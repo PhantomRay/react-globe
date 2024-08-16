@@ -7,14 +7,12 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-      }}
-    >
-      <App />
-    </div>
-  </React.StrictMode>
+  <div
+    style={{
+      width: "100vw",
+      height: "100vh",
+    }}
+  >
+    <App />
+  </div>
 );
