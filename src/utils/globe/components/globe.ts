@@ -3,7 +3,7 @@ import { FlightsProps } from "..";
 import flightsDefault from "../assets/arcs.json";
 import countries from "../assets/globe.json";
 import { Globe as ThreeGlobe } from "../systems/Globe";
-import { genRandomNumbers } from "../systems/utils";
+import { genRandomNumbers, hexToRgb } from "../systems/utils";
 
 interface GlobeProps {
   pointSize?: number;
@@ -186,10 +186,14 @@ class Globe {
     let points = [];
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
+
+      const pointColor = "#ff0000";
+      const rgb = hexToRgb(pointColor) as { r: number; g: number; b: number };
+
       points.push({
         size: this.pointSize,
         order: arc.order,
-        color: () => `rgba(255, 0, 0, 1)`, // Set color to solid red
+        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
         label: arc.from || "",
         lat: arc.startLat,
         lng: arc.startLng,
@@ -197,7 +201,7 @@ class Globe {
       points.push({
         size: this.pointSize,
         order: arc.order,
-        color: () => `rgba(255, 0, 0, 1)`, // Set color to solid red
+        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
         label: arc.to || "",
         lat: arc.endLat,
         lng: arc.endLng,
